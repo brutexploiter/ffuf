@@ -44,6 +44,7 @@ type HTTPOptions struct {
 	Http2             bool     `json:"http2"`
 	ClientCert        string   `json:"client-cert"`
 	ClientKey         string   `json:"client-key"`
+	TLSVersion        string   `json:"tls_version"`
 }
 
 type GeneralOptions struct {
