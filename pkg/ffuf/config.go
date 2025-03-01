@@ -67,6 +67,7 @@ type Config struct {
 	Http2                     bool                  `json:"http2"`
 	ClientCert                string                `json:"client-cert"`
 	ClientKey                 string                `json:"client-key"`
+	TLSVersion                string                `json:"tls_version"`
 }
 
 type InputProviderConfig struct {
@@ -126,6 +127,7 @@ func NewConfig(ctx context.Context, cancel context.CancelFunc) Config {
 	conf.Verbose = false
 	conf.Wordlists = []string{}
 	conf.Http2 = false
+	conf.TLSVersion = "1.0"
 	return conf
 }
 
