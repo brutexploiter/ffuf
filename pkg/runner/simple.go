@@ -102,6 +102,24 @@ func NewSimpleRunner(conf *ffuf.Config, replay bool) ffuf.RunnerProvider {
     return &simplerunner
 }
 
+func (r *SimpleRunner) Prepare(input map[string][]byte, basereq *ffuf.Request) (ffuf.Request, error) {
+	req := ffuf.CopyRequest(basereq)
+
+	for keyword, inputitem := range input {
+		req.Method = strings.ReplaceAll(req.Method, keyword, string(inputitem))
+		headers := make(map[string]string, len(req.Headers))
+		for h, v := range req.Headers {
+			headers[h] = strings.ReplaceAll(v, keyword, string(inputitem))
+		}
+		req.Headers = headers
+		req.Url = strings.ReplaceAll(req.Url, keyword, string(inputitem))
+		req.Data = []byte(strings.ReplaceAll(string(req.Data), keyword, string(inputitem)))
+	}
+
+	req.Input = input
+	return req, nil
+}
+
 func (r *SimpleRunner) Execute(req *ffuf.Request) (ffuf.Response, error) {
 	var httpreq *http.Request
 	var err error
