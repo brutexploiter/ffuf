@@ -374,6 +374,11 @@ func ConfigFromOptions(parseOpts *ConfigOptions, ctx context.Context, cancel con
 		conf.ClientKey = parseOpts.HTTP.ClientKey
 	}
 
+	// Prepare TLS version
+        if parseOpts.HTTP.TLSVersion != "" {
+                conf.TLSVersion = parseOpts.HTTP.TLSVersion
+        }
+
 	//Prepare headers and make canonical
 	for _, v := range parseOpts.HTTP.Headers {
 		hs := strings.SplitN(v, ":", 2)
