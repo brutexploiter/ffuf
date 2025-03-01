@@ -41,7 +41,7 @@ func getTLSVersion(version string) uint16 {
     case "1.3":
         return tls.VersionTLS13
     default:
-        return tls.VersionTLS13 // Default to TLS 1.3 for security
+        return tls.VersionTLS10
     }
 }
 
